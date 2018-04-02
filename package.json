@@ -1,0 +1,24 @@
+{
+  "name": "playback",
+  "version": "1.0.0",
+  "description": "Playback is a custom library used to embed MixCloud content transparently.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InsanityRadio/Playback.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/InsanityRadio/Playback/issues"
+  },
+  "homepage": "https://github.com/InsanityRadio/Playback#readme",
+  "devDependencies": {
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
+  }
+}
