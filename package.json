@@ -4,6 +4,8 @@
   "description": "Playback is a custom library used to embed MixCloud content transparently.",
   "main": "index.js",
   "scripts": {
+    "dist": "NODE_ENV=production webpack",
+    "dev": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
