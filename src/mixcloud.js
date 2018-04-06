@@ -48,8 +48,6 @@ export default class Mixcloud extends EventListener {
 
 	onMessage (event) {
 
-		console.log('rx', event, this)
-
 		if (event.source != this.iframe.contentWindow) {
 			return;
 		}
@@ -102,8 +100,6 @@ export default class Mixcloud extends EventListener {
 	}
 
 	handlePromise (data) {
-
-		console.log('promise', data)
 
 		let pending = this.pending[data.methodId];
 

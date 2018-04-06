@@ -7,26 +7,45 @@ export default class Playback extends EventListener {
 		
 		super();
 
+		this.url = url;
+
 		var fakeIframe = this.iframe = document.createElement('iframe');
 		fakeIframe.style.display = 'none';
-		fakeIframe.src = 'https://www.mixcloud.com/widget/iframe/?feed=' + escape(url);
+		fakeIframe.src = 'https://www.mixcloud.com/widget/iframe/?hide_cover=1&light=1&feed=' + escape(url);
 
 		document.body.appendChild(fakeIframe);
 
 		this.ready();
 
+		this.duration = 0;
 		this.mixcloud = new Mixcloud(fakeIframe);
 
 		this.mixcloud.ready.then((a) => {
 			this.load(url, startPlaying).then((e) => {
-				console.log('mawp')
-				this.readyResolve();
-				if (startPlaying) {
-					this.play();
-				}
+				this.getVolume().then((vol) => {
+					this.loadAPIData().then((f) => {
+
+						this.setData(e);
+						this.readyResolve();
+
+						startPlaying && this.play();
+
+					});
+				});
 			});
 		})
 
+		this.mixcloud.addEventListener('progress', (e) => { e.playback = this; this.dispatchEvent(e) });
+		this.mixcloud.addEventListener('play', (e) => { e.playback = this; this.dispatchEvent(e) });
+		this.mixcloud.addEventListener('pause', (e) => { e.playback = this; this.dispatchEvent(e) });
+		this.mixcloud.addEventListener('ended', (e) => { e.playback = this; this.dispatchEvent(e) });
+		this.mixcloud.addEventListener('error', (e) => { e.playback = this; this.dispatchEvent(e) });
+		this.mixcloud.addEventListener('buffering', (e) => { e.playback = this; this.dispatchEvent(e) });
+
+	}
+
+	setData (e) {
+		this.data = e;
 	}
 
 	ready () {
@@ -56,6 +75,39 @@ export default class Playback extends EventListener {
 
 	toggle () {
 		return this.mixcloud.send('togglePlay');
+	}
+
+	seek (offset) {
+		return this.mixcloud.send('seek', [offset]);
+	}
+
+	loadAPIData () {
+		return new Promise((resolve, reject) => {
+			fetch('https://api.mixcloud.com' + this.url)
+			.then((a) => a.json())
+			.then((a) => this.setMetadata(a))
+			.then((a) => resolve(a))
+			.catch((a) => resolve(null))
+		})
+	}
+
+	getVolume () {
+		return this.mixcloud.send('getVolume')
+		.then((a) => a.value);
+	}
+
+	setVolume (volume) {
+		return this.mixcloud.send('setVolume', [volume]);
+	}
+
+	setMetadata (data) {
+
+		this.duration = data.audio_length;
+		this.title = data.name;
+		this.description = data.description;
+
+		return data;
+
 	}
 
 }

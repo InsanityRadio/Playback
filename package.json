@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/InsanityRadio/Playback#readme",
   "devDependencies": {
+    "raw-loader": "^0.5.1",
     "webpack": "^4.4.1",
-    "webpack-cli": "^2.0.13"
+    "webpack-cli": "^2.0.14"
   }
 }
