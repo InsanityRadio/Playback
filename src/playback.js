@@ -11,6 +11,12 @@ export default class Playback extends EventListener {
 
 		var fakeIframe = this.iframe = document.createElement('iframe');
 		fakeIframe.style.display = 'none';
+
+		// Setting sandbox disables MixCloud from using cookies and localStorage. 
+		// As a result, we can disable functionality like pausing across multiple tabs, 
+		//  and remembering the last play time/location. 
+		fakeIframe.sandbox = 'allow-scripts';
+
 		fakeIframe.src = 'https://www.mixcloud.com/widget/iframe/?hide_cover=1&light=1&feed=' + escape(url);
 
 		document.body.appendChild(fakeIframe);
