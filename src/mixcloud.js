@@ -116,7 +116,7 @@ export default class Mixcloud extends EventListener {
 
 
 	post (data) {
-		this.iframe.contentWindow.postMessage(data, 'https://www.mixcloud.com');
+		this.iframe.contentWindow.postMessage(data, '*');
 	}
 
 	sendData (type, data) {

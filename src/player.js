@@ -74,7 +74,7 @@ export default class Player {
 		}
 
 		this.playing = false;
-		this.buffering = true;
+		this.buffering = false;
 		this.currentTime = 0;
 		this.duration = 0;
 
