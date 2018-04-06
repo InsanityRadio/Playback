@@ -27,16 +27,16 @@ export default class Playback extends EventListener {
 		this.mixcloud = new Mixcloud(fakeIframe);
 
 		this.mixcloud.ready.then((a) => {
-			this.load(url, startPlaying).then((e) => {
+			this.loadAPIData().then((f) => {
 				this.getVolume().then((vol) => {
-					this.loadAPIData().then((f) => {
+					//this.load(url, startPlaying).then((e) => {
 
-						this.setData(e);
+					//	this.setData(e);
 						this.readyResolve();
 
 						startPlaying && this.play();
 
-					});
+					//});
 				});
 			});
 		})
