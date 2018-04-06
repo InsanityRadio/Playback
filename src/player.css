@@ -1,5 +1,6 @@
 input[type=range].player-slider {
 	-webkit-appearance: none;
+	background: none;
 	width: 100%;
 	margin: 1.95px 0;
 	border: none;
