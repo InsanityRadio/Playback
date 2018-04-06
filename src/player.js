@@ -16,7 +16,7 @@ export default class Player {
 			<div class="insanity-player">
 				<div class="container">
 					<!-- put some visual here -->
-					<img src="https://insanityradio.com/wp-content/uploads/sites/4/2018/02/IMG_9396-e1518194803312.jpg" />
+					<img src="https://insanityradio.com/wp-content/uploads/sites/4/2017/03/2272787480_f0e5358896_o-e1490988529369.jpg" />
 				</div>
 				<div class="controls">
 					<div class="top">
@@ -61,7 +61,7 @@ export default class Player {
 
 	}
 
-	load (type, url) {
+	load (type, url, image) {
 
 		this.playback && this.playback.destroy();
 		this.playback = new Playback(url);
@@ -69,6 +69,10 @@ export default class Player {
 		this.playback.ready.then((a) => {
 			this.drawAll();
 		})
+
+		if (image) {
+			this.containers.mediaContent.querySelector('img').src = image;
+		}
 
 		this.playback.addEventListener('play', (e) => this.handlePlay(e))
 		this.playback.addEventListener('pause', (e) => this.handlePause(e))
