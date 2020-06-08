@@ -18,6 +18,7 @@ export default class EventListener {
 	}
 
 	dispatchEvent (event) {
+		if (event.type && !event.eventName) event.eventName = event.type;
 		event.eventName && this._handlers && this._handlers[event.eventName] &&
 			this._handlers[event.eventName].forEach((e) => e(event));
 	}

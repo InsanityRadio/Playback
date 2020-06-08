@@ -6,6 +6,9 @@ const BRAND = 'Insanity Radio';
 
 export default class Player {
 
+	getPlayback () {
+		return Playback;
+	}
 
 	constructor (container) {
 
@@ -15,29 +18,8 @@ export default class Player {
 
 		container.innerHTML = `
 			<div class="insanity-player">
-				<div class="container">
-					<!-- put some visual here -->
-					<img src="https://insanityradio.com/wp-content/uploads/sites/4/2017/03/2272787480_f0e5358896_o-e1490988529369.jpg" />
-				</div>
 				<div class="preload">
 					<div class="insanity-preloader"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-				</div>
-				<div class="overlay">
-					<div class="overlay-blocked">
-						<h1 class="overlay-title">Ad Blocker Problem</h1>
-						<div class="overlay-body">
-							<p>You're seeing this because you may have an ad-blocker which is affecting our player.</p>
-							<p>Some ad-blockers can interfere with MixCloud, our content provider. MixCloud sometimes roll adverts, to make sure artists we play get paid royalties.</p>
-							<p>Disabling your ad-blocker/anti-tracker for ${BRAND} doesn't necessarily disable it for MixCloud. We don't track you.</p>
-						</div>
-					</div>
-					<div class="overlay-error">
-						<h1 class="overlay-title">Load Error</h1>
-						<div class="overlay-body">
-							<p>There was an error communicating with MixCloud. Please check your Internet connection.</p>
-							<p>You can try listening to this episode directly on their website.</p>
-						</div>
-					</div>
 				</div>
 				<div class="controls">
 					<div class="top">
@@ -86,7 +68,8 @@ export default class Player {
 	load (type, url, image) {
 
 		this.playback && this.playback.destroy();
-		this.playback = new Playback(url);
+		let playback = this.getPlayback();
+		this.playback = new playback(url);
 
 		this.playback.ready.then((a) => {
 			this.drawAll();
